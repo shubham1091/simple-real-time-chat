@@ -25,7 +25,7 @@ This is a real-time chat application built using Appwrite, TypeScript, React, an
 2. Install dependencies:
 
     ```bash
-    cd real-time-chat
+    cd simple-real-time-chat
     npm install
     ```
 
