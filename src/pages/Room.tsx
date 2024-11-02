@@ -1,5 +1,5 @@
 import { Models, Query, RealtimeResponseEvent } from "appwrite";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { client, databases } from "../appwriteConfig";
 import { Header, MessageBubble, MessageInput } from "../components";
 import { useAuth } from "../utils/AuthContext";
@@ -7,6 +7,15 @@ import { useAuth } from "../utils/AuthContext";
 const Room = () => {
   const [messages, setMessages] = useState<Models.Document[]>([]);
   const { user } = useAuth();
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const getMessages = async () => {
     const res = await databases.listDocuments(
@@ -56,12 +65,9 @@ const Room = () => {
         <div className="flex-1 overflow-y-auto px-4 py-6">
           <div className="max-w-3xl mx-auto space-y-1">
             {messages.map((message) => (
-              <MessageBubble
-                key={message.$id}
-                message={message}
-                user={user}
-              />
+              <MessageBubble key={message.$id} message={message} user={user} />
             ))}
+            <div ref={messagesEndRef} />
           </div>
         </div>
 
