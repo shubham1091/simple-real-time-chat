@@ -5,7 +5,6 @@ import Room from "./pages/Room";
 import LoginPage from "./pages/LoginPage";
 import { AuthProvider } from "./utils/AuthContext";
 import RegisterPage from "./pages/RegisterPage";
-console.log("Collection ID:", import.meta.env.VITE_COLLECTION_ID);
 
 
 function App() {
